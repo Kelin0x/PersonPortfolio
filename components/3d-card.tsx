@@ -4,7 +4,6 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState } from "react";
 import Image from "next/image";
 import { SiReact, SiNextdotjs, SiTypescript, SiNodedotjs, SiWeb3Dotjs, SiBlockchaindotcom } from 'react-icons/si';
-import { OrbitingCircles } from "./orbiting-circles";
 
 export const Card3D = ({
   children,
