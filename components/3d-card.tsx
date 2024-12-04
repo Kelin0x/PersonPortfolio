@@ -54,28 +54,23 @@ export const Card3D = ({
 
   return (
     <motion.div
-      className={cn("flex items-center justify-center perspective-1200 relative", className)}
+      className={cn("flex items-center justify-center perspective-1200", className)}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       onMouseEnter={() => setHovering(true)}
     >
-      <div className="absolute inset-0 z-10">
-        <OrbitingCircles />
-      </div>
-
       <motion.div
         className={cn(
-          "flex items-center justify-center relative bg-gradient-to-br from-white/90 via-blue-100/90 to-purple-100/90 rounded-3xl border border-gray-200 p-8",
+          "flex items-center justify-center relative bg-gradient-to-br from-white via-blue-100 to-purple-100 rounded-3xl border border-gray-200 p-8",
           "backdrop-blur-xl shadow-2xl transition-shadow duration-300",
-          hovering ? "shadow-3xl" : ""
+          hovering ? "z-[999] shadow-3xl" : ""
         )}
         style={{ 
           rotateX,
           rotateY,
           scale,
           transformStyle: "preserve-3d",
-          transition: "box-shadow 0.3s ease",
-          zIndex: 5
+          transition: "box-shadow 0.3s ease" 
         }}
       >
         <div className="relative z-10">
@@ -93,7 +88,7 @@ export const Card3D = ({
             
             <div className="text-center space-y-4">
               <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
-                Hi there, I'm Kling-zero! 👋
+                Hi there, I&apos;m Kling-zero! 👋
               </h1>
               <p className="text-gray-600">
                 New to Web3, but dreaming big! 🚀 Developer 🧑‍💻 with a product mindset.
