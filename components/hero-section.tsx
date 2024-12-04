@@ -1,7 +1,6 @@
 "use client";
 import { Card3D } from "./3d-card";
 import { BackgroundBeams } from "./background-beams";
-import { AnimatedBackground } from "./animated-background";
 import { OrbitingCircles } from "./orbiting-circles";
 import { NavBar } from "./nav-bar";
 import Image from "next/image";
