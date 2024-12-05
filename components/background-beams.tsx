@@ -1,11 +1,14 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/utils/cn";
 
 export const BackgroundBeams = ({ className }: { className?: string }) => {
+  const [isMounted, setIsMounted] = useState(false);
   const beamsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setIsMounted(true);
+    
     if (!beamsRef.current) return;
 
     const moveBeams = (e: MouseEvent) => {
@@ -29,6 +32,11 @@ export const BackgroundBeams = ({ className }: { className?: string }) => {
     window.addEventListener("mousemove", moveBeams);
     return () => window.removeEventListener("mousemove", moveBeams);
   }, []);
+
+  // 在客户端挂载前不渲染内容
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <div

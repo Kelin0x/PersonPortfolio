@@ -1,7 +1,6 @@
 "use client";
 import { Card3D } from "./3d-card";
 import { BackgroundBeams } from "./background-beams";
-import { OrbitingCircles } from "./orbiting-circles";
 import { NavBar } from "./nav-bar";
 
 export const HeroSection = () => {
@@ -22,9 +21,10 @@ export const HeroSection = () => {
         {/* 3D卡片 */}
         <Card3D>
           <div className="relative w-full">
-            <OrbitingCircles />
           </div>
         </Card3D>
+
+
       </div>
 
       {/* 背景光束效果 */}

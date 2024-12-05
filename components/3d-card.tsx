@@ -16,13 +16,15 @@ export const Card3D = ({
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], ["10deg", "-10deg"]), {
-    damping: 40,
-    stiffness: 300,
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], ["7deg", "-7deg"]), {
+    damping: 50,
+    stiffness: 200,
+    mass: 1
   });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], ["-10deg", "10deg"]), {
-    damping: 40,
-    stiffness: 300,
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], ["-7deg", "7deg"]), {
+    damping: 50,
+    stiffness: 200,
+    mass: 1
   });
 
   const scale = useSpring(hovering ? 1.02 : 1, {
@@ -30,10 +32,15 @@ export const Card3D = ({
     stiffness: 300,
   });
 
+  const float = useSpring(hovering ? -10 : 0, {
+    damping: 30,
+    stiffness: 300,
+  });
+
   function onMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
     const { left, top, width, height } = currentTarget.getBoundingClientRect();
-    mouseX.set((clientX - left - width / 2) / width);
-    mouseY.set((clientY - top - height / 2) / height);
+    mouseX.set((clientX - left - width / 2) / (width / 3));
+    mouseY.set((clientY - top - height / 2) / (height / 3));
   }
 
   function onMouseLeave() {
@@ -53,27 +60,48 @@ export const Card3D = ({
 
   return (
     <motion.div
-      className={cn("flex items-center justify-center perspective-1200", className)}
+      className={cn(
+        "flex items-center justify-center perspective-[2000px]",
+        className
+      )}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
       onMouseEnter={() => setHovering(true)}
+      style={{
+        y: float
+      }}
     >
       <motion.div
         className={cn(
-          "flex items-center justify-center relative bg-gradient-to-br from-white via-blue-100 to-purple-100 rounded-3xl border border-gray-200 p-8",
-          "backdrop-blur-xl shadow-2xl transition-shadow duration-300",
-          hovering ? "z-[999] shadow-3xl" : ""
+          "flex items-center justify-center relative",
+          "bg-gradient-to-br from-white/90 via-white/80 to-white/70",
+          "rounded-3xl border border-white/20",
+          "p-8 shadow-2xl",
+          hovering ? "shadow-xl shadow-blue-500/10" : "",
+          "backdrop-blur-xl"
         )}
         style={{ 
           rotateX,
           rotateY,
           scale,
           transformStyle: "preserve-3d",
-          transition: "box-shadow 0.3s ease" 
+          transformOrigin: "center center",
         }}
       >
-        <div className="relative z-10">
-          {/* 头像和介绍部分 */}
+        <motion.div
+          className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"
+          style={{
+            transform: "translateZ(-20px)",
+            opacity: hovering ? 1 : 0
+          }}
+        />
+
+        <motion.div 
+          className="relative z-10"
+          style={{
+            transform: "translateZ(20px)"
+          }}
+        >
           <div className="flex flex-col items-center gap-6">
             <div className="relative w-40 h-40">
               <Image
@@ -105,7 +133,6 @@ export const Card3D = ({
                 </p>
               </div>
 
-              {/* 添加 Technical Skills */}
               <div className="w-full bg-white/50 backdrop-blur-sm rounded-2xl p-4 border border-gray-200">
                 <h3 className="text-xl font-semibold text-gray-700 mb-4">Technical Skills</h3>
                 <div className="flex flex-wrap gap-3">
@@ -122,7 +149,6 @@ export const Card3D = ({
                 </div>
               </div>
 
-              {/* 添加 GitHub Contributions */}
               <div className="w-full bg-white/50 backdrop-blur-sm rounded-2xl p-4 border border-gray-200">
                 <h3 className="text-xl font-semibold text-gray-700 mb-4">GitHub Contributions</h3>
                 <Image
@@ -153,16 +179,25 @@ export const Card3D = ({
           </div>
 
           {children}
-        </div>
+        </motion.div>
 
-        {/* 优化背景装饰效果 */}
         <motion.div 
-          className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-xl"
+          className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0"
           animate={{
-            opacity: hovering ? 0.7 : 0
+            opacity: hovering ? 0.2 : 0
           }}
           transition={{
-            duration: 0.3
+            duration: 0.4
+          }}
+        />
+
+        <motion.div
+          className="absolute inset-0 rounded-3xl"
+          style={{
+            boxShadow: hovering 
+              ? "inset 0 0 10px rgba(255,255,255,0.3)" 
+              : "none",
+            transition: "box-shadow 0.4s ease"
           }}
         />
       </motion.div>
