@@ -17,6 +17,11 @@ interface Link extends d3.SimulationLinkDatum<Skill> {
     strength: number;
 }
 
+interface Node extends d3.SimulationNodeDatum {
+    x: number;
+    y: number;
+}
+
 export const SkillGraph = () => {
     const svgRef = useRef<SVGSVGElement>(null);
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -158,9 +163,9 @@ export const SkillGraph = () => {
             .nodes(skillData.skills)
             .on('tick', () => {
                 // 添加边界限制
-                node.each((d: any) => {
-                    d.x = Math.max(-width/2 + padding, Math.min(width/2 - padding, d.x!));
-                    d.y = Math.max(-height/2 + padding, Math.min(height/2 - padding, d.y!));
+                node.each((d: Node) => {
+                    d.x = Math.max(-width/2 + padding, Math.min(width/2 - padding, d.x));
+                    d.y = Math.max(-height/2 + padding, Math.min(height/2 - padding, d.y));
                 });
 
                 link

@@ -24,9 +24,7 @@ const CONTAINER_HEIGHT = 660; // 容器高度
 
 export const AboutSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [particles, setParticles] = useState<Particle[]>([]);
-  const [isExpanded, setIsExpanded] = useState(false);
   
   // 创建弹性动画
   const { scrollYProgress } = useScroll({
@@ -46,7 +44,6 @@ export const AboutSection = () => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     
-    setMousePosition({ x, y });
     
     // 创建新粒子
     const newParticle: Particle = {
@@ -87,7 +84,6 @@ export const AboutSection = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsExpanded(true);
     }, 500);
     return () => clearTimeout(timer);
   }, []);
