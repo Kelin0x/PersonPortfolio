@@ -4,20 +4,24 @@ import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import { skillData } from './skill-graph-data';
 
-interface Skill extends d3.SimulationNodeDatum {
+interface Skill {
     id: string;
     name: string;
     level: number;
     category: string;
+    x?: number;
+    y?: number;
+    fx?: number | null;
+    fy?: number | null;
 }
 
 interface Link extends d3.SimulationLinkDatum<Skill> {
-    source: string;
-    target: string;
+    source: Skill;
+    target: Skill;
     strength: number;
 }
 
-interface Node extends d3.SimulationNodeDatum {
+interface Node extends d3.SimulationNodeDatum, Skill {
     x: number;
     y: number;
 }
@@ -99,15 +103,27 @@ export const SkillGraph = () => {
             .attr('stroke-width', d => d.strength * 1.5)
             .attr('stroke-dasharray', '4,4');
 
-        // 创建节点组
-        const node = svg.append('g')
-            .selectAll('g')
-            .data(skillData.skills)
+        const drag = d3.drag<SVGGElement, Node>()
+            .on('start', (event: d3.D3DragEvent<SVGGElement, Node, Node>) => {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                event.subject.fx = event.subject.x;
+                event.subject.fy = event.subject.y;
+            })
+            .on('drag', (event: d3.D3DragEvent<SVGGElement, Node, Node>) => {
+                event.subject.fx = event.x;
+                event.subject.fy = event.y;
+            })
+            .on('end', (event: d3.D3DragEvent<SVGGElement, Node, Node>) => {
+                if (!event.active) simulation.alphaTarget(0);
+                event.subject.fx = null;
+                event.subject.fy = null;
+            });
+
+        // 修改节点选择和拖拽行为
+        const node = svg.selectAll<SVGGElement, Node>('g')
+            .data(skillData.skills as Node[])
             .join('g')
-            .call(d3.drag<SVGGElement, Skill>()
-                .on('start', dragstarted)
-                .on('drag', dragged)
-                .on('end', dragended));
+            .call(drag);
 
         // 添加节点圆圈
         node.append('circle')
@@ -130,34 +146,17 @@ export const SkillGraph = () => {
             // 高亮相关连接和节点
             link
                 .attr('stroke-opacity', l =>
-                    (l.source === d || l.target === d) ? 1 : 0.1);
+                    ((l.source as unknown as Skill).id === d.id || (l.target as unknown as Skill).id === d.id) ? 1 : 0.1);
             node.attr('opacity', n =>
-                n === d || skillData.links.some(l =>
-                    (l.source === d.id && l.target === n.id) ||
-                    (l.target === d.id && l.source === n.id)
+                n.id === d.id || skillData.links.some(l =>
+                    ((l.source as unknown as Skill).id === d.id && (l.target as unknown as Skill).id === n.id) ||
+                    ((l.target as unknown as Skill).id === d.id && (l.source as unknown as Skill).id === n.id)
                 ) ? 1 : 0.2);
         })
             .on('mouseout', function () {
                 link.attr('stroke-opacity', 0.6);
                 node.attr('opacity', 1);
             });
-
-        function dragstarted(event: d3.D3DragEvent<SVGGElement, Skill, Skill>) {
-            if (!event.active) simulation.alphaTarget(0.3).restart();
-            event.subject.fx = event.subject.x;
-            event.subject.fy = event.subject.y;
-        }
-
-        function dragged(event: d3.D3DragEvent<SVGGElement, Skill, Skill>) {
-            event.subject.fx = event.x;
-            event.subject.fy = event.y;
-        }
-
-        function dragended(event: d3.D3DragEvent<SVGGElement, Skill, Skill>) {
-            if (!event.active) simulation.alphaTarget(0);
-            event.subject.fx = null;
-            event.subject.fy = null;
-        }
 
         simulation
             .nodes(skillData.skills)
@@ -169,16 +168,16 @@ export const SkillGraph = () => {
                 });
 
                 link
-                    .attr('x1', d => (d.source as Skill).x!)
-                    .attr('y1', d => (d.source as Skill).y!)
-                    .attr('x2', d => (d.target as Skill).x!)
-                    .attr('y2', d => (d.target as Skill).y!);
+                    .attr('x1', d => (d.source as unknown as Skill).x!)
+                    .attr('y1', d => (d.source as unknown as Skill).y!)
+                    .attr('x2', d => (d.target as unknown as Skill).x!)
+                    .attr('y2', d => (d.target as unknown as Skill).y!);
 
                 node.attr('transform', d => `translate(${d.x},${d.y})`);
             });
 
         simulation.force<d3.ForceLink<Skill, Link>>('link')!
-            .links(skillData.links);
+            .links(skillData.links as unknown as Link[]);
 
         return () => {
             simulation.stop();

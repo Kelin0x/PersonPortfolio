@@ -127,27 +127,6 @@ export const AboutSection = () => {
     }
   ];
 
-  // 重新设计布局计算函数
-  const getInitialPosition = () => ({
-    x: 0,
-    y: 0,
-    rotate: 0,
-    scale: 0.9
-  });
-
-  const getFinalPosition = (index: number) => {
-    const column = index % 3;
-    const row = Math.floor(index / 3);
-    return {
-      // 水平布局：左(-360px) 中(0) 右(360px)，确保间距一致
-      x: (column - 1) * 360,
-      // 垂直布局：第一行在中心偏上(-120px)，第二行在中心偏下(120px)
-      y: row === 0 ? -120 : 120,
-      rotate: 0,
-      scale: 1
-    };
-  };
-
   // 添加自动移动相关的状态和函数
   const [positions, setPositions] = useState<{ x: number; y: number }[]>(
     features.map((_, index) => ({
