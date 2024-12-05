@@ -181,7 +181,7 @@ export const SkillGraph = () => {
     }, [isMounted, dimensions]);
 
     return (
-        <div className="w-full h-full flex items-center justify-center 
+        <div className="w-full aspect-square flex items-center justify-center 
           bg-white/50 backdrop-blur-sm rounded-3xl shadow-lg p-2">
             <svg ref={svgRef} className="w-full h-full" />
         </div>

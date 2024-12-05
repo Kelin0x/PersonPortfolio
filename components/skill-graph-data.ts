@@ -1,7 +1,7 @@
 export const skillData = {
   skills: [
     // 前端技术
-    { id: 'frontend', name: '前端开发', level: 5, category: 'core' },
+    { id: 'frontend', name: 'frontend', level: 5, category: 'core' },
     { id: 'react', name: 'React', level: 5, category: 'frontend' },
     { id: 'vue', name: 'Vue', level: 4, category: 'frontend' },
     { id: 'typescript', name: 'TypeScript', level: 5, category: 'frontend' },
@@ -9,7 +9,7 @@ export const skillData = {
     { id: 'tailwind', name: 'Tailwind CSS', level: 4, category: 'frontend' },
     
     // 后端技术
-    { id: 'backend', name: '后端开发', level: 5, category: 'core' },
+    { id: 'backend', name: 'backend', level: 5, category: 'core' },
     { id: 'nodejs', name: 'Node.js', level: 4, category: 'backend' },
     { id: 'express', name: 'Express', level: 4, category: 'backend' },
     { id: 'nestjs', name: 'NestJS', level: 4, category: 'backend' },
@@ -25,7 +25,7 @@ export const skillData = {
     { id: 'defi', name: 'DeFi', level: 3, category: 'web3' },
     
     // 开发工具
-    { id: 'devtools', name: '开发工具', level: 5, category: 'core' },
+    { id: 'devtools', name: 'dev-tools', level: 5, category: 'core' },
     { id: 'git', name: 'Git', level: 5, category: 'devtools' },
     { id: 'docker', name: 'Docker', level: 4, category: 'devtools' },
     { id: 'aws', name: 'AWS', level: 3, category: 'devtools' },

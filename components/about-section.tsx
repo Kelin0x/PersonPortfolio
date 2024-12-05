@@ -1,4 +1,5 @@
 "use client";
+
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { SkillGraph } from "./skill-graph";
 import { useRef, useState, useEffect } from "react";
@@ -228,7 +229,52 @@ export const AboutSection = () => {
           </p>
         </motion.div>
 
-        {/* 替换卡片网格布局部分 */}
+        {/* 顶部拖拽示意图 */}
+        <div className="absolute top-4 right-4 flex items-center gap-3 text-gray-600 bg-white/50 
+          backdrop-blur-sm px-4 py-2.5 rounded-full border-2 border-blue-200/50 shadow-lg
+          animate-bounce hover:bg-white/70 transition-all duration-300">
+          <svg 
+            className="w-6 h-6 text-blue-500" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path 
+              d="M12 5V19M12 5L8 9M12 5L16 9M12 19L8 15M12 19L16 15" 
+              stroke="currentColor" 
+              strokeWidth="2.5" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            />
+          </svg>
+          <span className="text-sm font-bold text-gray-700">DRAG CARDS</span>
+        </div>
+
+        {/* 底部说明文字 */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+          <div className="flex items-center gap-3 text-gray-600 bg-white/50 backdrop-blur-sm 
+            px-5 py-3 rounded-xl border-2 border-purple-200/50 shadow-lg">
+            <svg 
+              className="w-5 h-5 text-purple-500" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path 
+                d="M9 4.5V19.5M15 4.5V19.5M4.5 9H19.5M4.5 15H19.5" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round"
+              />
+            </svg>
+            <span className="text-sm font-medium">
+              Try dragging the cards to explore my skills in different areas
+            </span>
+            <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-purple-400 opacity-75"></span>
+          </div>
+        </div>
+
+        {/* 卡片网格布局 */}
         <div className="relative w-full max-w-[900px] h-[660px] mx-auto mb-16 border border-gray-200 rounded-2xl 
           bg-transparent backdrop-blur-sm">
           {features.map((feature, index) => (
@@ -320,9 +366,20 @@ export const AboutSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="aspect-square rounded-2xl overflow-hidden 
-            backdrop-blur-sm bg-white/30 shadow-lg">
-            <SkillGraph />
+          <div className="aspect-square rounded-2xl overflow-hidden relative group">
+            {/* 添加炫酷的渐变背景 */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-pink-600/20 
+              group-hover:from-blue-600/30 group-hover:via-purple-600/30 group-hover:to-pink-600/30
+              transition-all duration-500 backdrop-blur-md"></div>
+            
+            {/* 添加动态光效 */}
+            <div className="absolute inset-0 bg-gradient-conic from-transparent via-white/10 to-transparent 
+              animate-spin-slow opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            
+            {/* SkillGraph 组件 */}
+            <div className="relative z-10">
+              <SkillGraph />
+            </div>
           </div>
         </motion.div>
       </motion.div>
