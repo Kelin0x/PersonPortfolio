@@ -12,6 +12,9 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        handwriting: ['Caveat', 'cursive'],
+      },
       animation: {
         'wave': 'wave 8s ease-in-out infinite',
         'wave-slow': 'wave 10s ease-in-out infinite',

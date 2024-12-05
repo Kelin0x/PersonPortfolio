@@ -17,6 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet" />
+      </head>
       <body>
         {/* 网站全局背景 */}
         <div className="fixed inset-0 z-[-1]">

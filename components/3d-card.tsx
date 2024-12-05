@@ -58,6 +58,13 @@ export const Card3D = ({
     { name: 'Blockchain', icon: SiBlockchaindotcom, color: 'text-orange-500' }
   ];
 
+  const particles = Array.from({ length: 20 }).map((_, i) => ({
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 2 + 1,
+    speed: Math.random() * 0.5 + 0.2,
+  }));
+
   return (
     <motion.div
       className={cn(
@@ -71,6 +78,27 @@ export const Card3D = ({
         y: float
       }}
     >
+      {hovering && particles.map((particle, index) => (
+        <motion.div
+          key={index}
+          className="absolute w-1 h-1 bg-blue-400 rounded-full"
+          initial={{ 
+            x: particle.x + "%",
+            y: particle.y + "%",
+            opacity: 0 
+          }}
+          animate={{ 
+            y: particle.y - 20 + "%",
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: particle.speed * 5,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+      ))}
+      
       <motion.div
         className={cn(
           "flex items-center justify-center relative",
