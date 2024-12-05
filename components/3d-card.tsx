@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/utils/cn";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { SiReact, SiNextdotjs, SiTypescript, SiNodedotjs, SiWeb3Dotjs, SiBlockchaindotcom } from 'react-icons/si';
 
@@ -58,12 +58,23 @@ export const Card3D = ({
     { name: 'Blockchain', icon: SiBlockchaindotcom, color: 'text-orange-500' }
   ];
 
-  const particles = Array.from({ length: 20 }).map((_, i) => ({
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 2 + 1,
-    speed: Math.random() * 0.5 + 0.2,
-  }));
+  const [particles, setParticles] = useState<Array<{
+    x: number;
+    y: number;
+    size: number;
+    speed: number;
+  }>>([]);
+
+  useEffect(() => {
+    setParticles(
+      Array.from({ length: 20 }, () => ({
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 2 + 1,
+        speed: Math.random() * 0.5 + 0.2,
+      }))
+    );
+  }, []);
 
   return (
     <motion.div
@@ -80,7 +91,7 @@ export const Card3D = ({
     >
       {hovering && particles.map((particle, index) => (
         <motion.div
-          key={index}
+          key={`particle-${index}`}
           className="absolute w-1 h-1 bg-blue-400 rounded-full"
           initial={{ 
             x: particle.x + "%",

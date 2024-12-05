@@ -4,4 +4,4 @@ export * from './hero-section';
 export * from './nav-bar';
 export * from './skill-graph';
 export * from './about-section';
-export * from './parallax-background';
+export * from './static-background';
