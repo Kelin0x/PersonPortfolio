@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { SkillGraph } from "./skill-graph";
 import { useRef, useState, useEffect } from "react";
 import { SiReact, SiWeb3Dotjs, SiBlockchaindotcom } from 'react-icons/si';
 
