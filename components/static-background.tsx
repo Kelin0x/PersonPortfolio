@@ -10,10 +10,10 @@ export const StaticBackground = () => {
     setIsMounted(true);
   }, []);
 
-  // 基础背景结构 - 服务端和客户端都会渲染这部分
+  // 基础背景结构 - 提高颜色饱和度和透明度
   const baseBackground = (
     <div className="fixed inset-0 z-[-1] overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/80 to-purple-50/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-100 to-sky-200" />
     </div>
   );
 
@@ -25,12 +25,12 @@ export const StaticBackground = () => {
   // 客户端渲染的完整背景
   return (
     <div className="fixed inset-0 z-[-1] overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/80 to-purple-50/90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-100 to-sky-200" />
       
-      {/* 图片装饰只在客户端渲染 */}
+      {/* 图片透明度调整 */}
       {isMounted && (
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute w-[800px] h-[600px] -left-40 top-20 rotate-[-8deg] opacity-40">
+          <div className="absolute w-[800px] h-[600px] -left-40 top-20 rotate-[-8deg] opacity-60">
             <div className="relative w-full h-full">
               <Image
                 src="/background.jpg"
@@ -44,7 +44,7 @@ export const StaticBackground = () => {
             </div>
           </div>
           
-          <div className="absolute w-[800px] h-[600px] -right-40 bottom-20 rotate-[8deg] opacity-40">
+          <div className="absolute w-[800px] h-[600px] -right-40 bottom-20 rotate-[8deg] opacity-60">
             <div className="relative w-full h-full">
               <Image
                 src="/background2.jpg"
@@ -60,11 +60,11 @@ export const StaticBackground = () => {
         </div>
       )}
 
-      {/* 光效装饰只在客户端渲染 */}
+      {/* 增强光效强度 */}
       {isMounted && (
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-[128px]" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-200/20 rounded-full blur-[128px]" />
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-300/40 rounded-full blur-[128px]" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-sky-300/40 rounded-full blur-[128px]" />
         </div>
       )}
     </div>
