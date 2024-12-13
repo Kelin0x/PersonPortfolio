@@ -191,7 +191,7 @@ export const Card3D = ({
               <div className="w-full bg-white/50 backdrop-blur-sm rounded-2xl p-4 border border-gray-200">
                 <h3 className="text-xl font-semibold text-gray-700 mb-4">GitHub Contributions</h3>
                 <Image
-                  src="https://ghchart.rshah.org/Kling-zero"
+                  src="https://ghchart.rshah.org/Kelin0x"
                   alt="GitHub Contributions"
                   width={800}
                   height={128}
