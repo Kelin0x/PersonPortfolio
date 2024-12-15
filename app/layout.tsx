@@ -6,7 +6,7 @@ import { StaticBackground } from "@/components/static-background";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Kling-zero's portfolio",
+  title: "Kelin0x's portfolio",
   description: "Kling-zero portfolio",
 };
 
