@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+html, body{
+    height: 100%;
+    width: 100%;
+    cursor: none;
+}
+
+nav{
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    z-index: 10;
+    pointer-events: none;
+}
+nav a{
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 28px;
+    pointer-events: all;
+}
+nav button{
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.65rem 1rem 0.25rem 1rem;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+    pointer-events: all;
+}
+
+.board{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    flex-direction: column;
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    perspective: 1000px;
+    z-index: 2;
+}
+
+.row{
+    flex: 1;
+    display: flex;
+    gap: 0.25rem;
+}
+.tile{
+    flex: 1;
+    transform-style: preserve-3d;
+    position: relative;
+}
+.tile-face{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    backface-visibility: hidden;
+    overflow: hidden;
+}
+.tile-front{
+    background-color: darkslategray;
+    transform: rotateX(0deg);
+}
+.tile-back{
+    background-color: darkslateblue;
+    transform: rotateX(180deg);
+}
+.tile-front::before, 
+.tile-back::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size:600% 600%;
+    background-position: inherit;
+    clip-path: inset(0 round 0.25rem);
+}
+
+.tile-front::before{
+    background-image: url('./bg-front.jpg');
+}
+.tile-back::before{
+    background-image: url('./bg-back.jpg');
+}
+
+.blocks-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+}
+#blocks{
+    width:105vw;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow: hidden;
+}
+.block{
+    width:50px;
+    height: 50px;
+    border: 0.5px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.highlight {
+    border-color: #fff;
+}
+
+#cursor-circle {
+    position: fixed;
+    pointer-events: none;
+    width: 120px;
+    height: 120px;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+
+.circle-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 2px rgba(255,255,255,0.5);
+    transform-origin: center;
+    opacity: 0.9;
+}
