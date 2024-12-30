@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page Rebuild From Junni | Codegrid</title>
+    <title>3D翻转瓦片动画</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- 自定义鼠标指针 -->
     <div id="cursor-circle"></div>
+
+    <!-- 导航栏 -->
     <nav>
         <a href="#">KeLin0x</a>
         <button id="flipButton">flip tiles</button>
     </nav>
+
+    <!-- 主要内容区域 -->
     <section class="board">
+        <!-- 背景块容器 -->
         <div class="blocks-container">
             <div id="blocks"></div>
         </div>
     </section>
+
+    <!-- GSAP动画库 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="./script.js"></script>
+    <script src="script.js"></script>
 </body>
-</html>
+</html> 

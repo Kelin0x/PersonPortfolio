@@ -1,5 +1,7 @@
+/* 导入 Poppins 字体 */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
+/* 重置默认样式 */
 *{
     margin: 0;
     padding: 0;
@@ -7,18 +9,22 @@
     font-family: 'Poppins', sans-serif;
 }
 
-
+/* 基本页面样式 */
 html, body{
     height: 100%;
     width: 100%;
     cursor: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
+/* 导航栏样式 */
 nav{
-    position:absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,6 +32,7 @@ nav{
     z-index: 10;
     pointer-events: none;
 }
+
 nav a{
     color: #fff;
     text-decoration: none;
@@ -33,6 +40,7 @@ nav a{
     font-size: 28px;
     pointer-events: all;
 }
+
 nav button{
     background-color: #000;
     color: #fff;
@@ -45,11 +53,12 @@ nav button{
     pointer-events: all;
 }
 
+/* 主面板样式 */
 .board{
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    background-color: #000;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a2e;
     flex-direction: column;
     display: flex;
     gap: 0.25rem;
@@ -58,32 +67,39 @@ nav button{
     z-index: 2;
 }
 
+/* 瓦片样式 */
 .row{
     flex: 1;
     display: flex;
     gap: 0.25rem;
 }
+
 .tile{
     flex: 1;
     transform-style: preserve-3d;
     position: relative;
 }
+
 .tile-face{
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     backface-visibility: hidden;
     overflow: hidden;
 }
+
 .tile-front{
-    background-color: darkslategray;
+    background-color: #1a1a2e;
     transform: rotateX(0deg);
 }
+
 .tile-back{
-    background-color: darkslateblue;
+    background-color: #1a1a2e;
     transform: rotateX(180deg);
 }
+
+/* 瓦片背景图片样式 */
 .tile-front::before, 
 .tile-back::before{
     content: '';
@@ -92,7 +108,7 @@ nav button{
     left: 0;
     right: 0;
     bottom: 0;
-    background-size:600% 600%;
+    background-size: 600% 600%;
     background-position: inherit;
     clip-path: inset(0 round 0.25rem);
 }
@@ -100,40 +116,43 @@ nav button{
 .tile-front::before{
     background-image: url('./bg-front.jpg');
 }
+
 .tile-back::before{
     background-image: url('./bg-back.jpg');
 }
 
+/* 背景块样式 */
 .blocks-container{
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
+    z-index: 0;
 }
+
 #blocks{
-    width:105vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
     overflow: hidden;
 }
+
 .block{
-    width:50px;
+    width: 50px;
     height: 50px;
     border: 0.5px solid transparent;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.highlight {
-    border-color: #fff;
-}
-
-#cursor-circle {
+/* 自定义光标样式 */
+#cursor-circle{
     position: fixed;
     pointer-events: none;
     width: 120px;
@@ -142,7 +161,7 @@ nav button{
     z-index: 1000;
 }
 
-.circle-text {
+.circle-text{
     position: absolute;
     left: 50%;
     top: 50%;
@@ -156,3 +175,66 @@ nav button{
     transform-origin: center;
     opacity: 0.9;
 }
+
+/* 高亮块样式 */
+.block.highlight {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: radial-gradient(
+        circle at center,
+        rgba(100, 200, 255, 0.2) 0%,
+        rgba(70, 150, 255, 0.15) 35%,
+        transparent 70%
+    );
+    transition: all 0.3s ease;
+}
+
+/* 修改发光效果 */
+.block.glow {
+    box-shadow: 
+        0 0 15px rgba(100, 200, 255, 0.3),
+        0 0 30px rgba(70, 150, 255, 0.2);
+    border-color: rgba(100, 200, 255, 0.4);
+    background: radial-gradient(
+        circle at center,
+        rgba(100, 200, 255, 0.25) 0%,
+        rgba(70, 150, 255, 0.2) 35%,
+        rgba(50, 100, 255, 0.1) 50%,
+        transparent 70%
+    );
+}
+
+/* 添加脉冲动画效果 */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 给发光效果添加脉冲动画 */
+.block.glow {
+    animation: pulse 2s infinite ease-in-out;
+}
+
+/* 添加hover效果 */
+.block.highlight:hover {
+    border-color: rgba(100, 200, 255, 0.6);
+    box-shadow: 
+        0 0 20px rgba(100, 200, 255, 0.4),
+        0 0 40px rgba(70, 150, 255, 0.3);
+    background: radial-gradient(
+        circle at center,
+        rgba(100, 200, 255, 0.35) 0%,
+        rgba(70, 150, 255, 0.25) 35%,
+        rgba(50, 100, 255, 0.15) 50%,
+        transparent 70%
+    );
+} 
